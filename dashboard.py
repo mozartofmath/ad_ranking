@@ -4,7 +4,6 @@ import numpy as np
 import base64
 import pickle
 
-import joblib
 
 def main():
     st.title("Ad Ranking")
