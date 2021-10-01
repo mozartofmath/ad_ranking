@@ -14,6 +14,8 @@ def main():
         ''')
 
     data = pd.read_csv('impression_log.csv')
+    cid = st.text_input('Enter Campaign ID')
+    
     def score_sites(df, campaign_id):
         new_df = df[df['CampaignId'] == campaign_id]
         eng = df[['Site', 'click', 'engagement']].groupby('Site').agg(['sum','count']).reset_index()
@@ -23,14 +25,15 @@ def main():
             'click_through_rate': eng['click']['sum']/eng['engagement']['sum']
             })
         return scores.sort_values('engagement_rate', ascending = False)
-    campaign_id = 't29si1w'
-    st.subheader(f'Given Campaign ID : "{campaign_id}"')
-    scored = score_sites(data, campaign_id)
-    st.table(scored.head(5))
-    csv  = scored.to_csv(index=False)
-    b64 = base64.b64encode(csv.encode()).decode()  # some strings <-> bytes conversions necessary here
-    href = f'<a href="data:file/csv;base64,{b64}" download="ScoredAds_{campaign_id}.csv">Download csv file</a>'
-    st.markdown(href, unsafe_allow_html=True)
+    #campaign_id = 't29si1w'
+    if st.button('score'):
+        st.subheader(f'Given Campaign ID : "{cid}"')
+        scored = score_sites(data, cid)
+        st.table(scored.head(5))
+        csv  = scored.to_csv(index=False)
+        b64 = base64.b64encode(csv.encode()).decode()  # some strings <-> bytes conversions necessary here
+        href = f'<a href="data:file/csv;base64,{b64}" download="ScoredAds_{cid}.csv">Download csv file</a>'
+        st.markdown(href, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
