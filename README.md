@@ -1,6 +1,7 @@
-# Adludio
+# Ad Scoring
+This repo contains a jupyter notebook with a function that scores ads based on engagement. Using this function, 
+we have implemented a heroku app where you can enter the campaign id and then download a csv file containing 
+the scoring of ads with that campaign id.
 
 # Code
-
-We have trained a Random Forest regression model and used streamlit to make a dashboard app. We have deployed this app on heroku. The link is https://dashboard316.herokuapp.com/ 
-You can upload a test csv file structured the same way as **test.csv** and download the predicted sales data as a csv file.
+We have deployed this app on heroku. The link is https://rank-ads.herokuapp.com/
