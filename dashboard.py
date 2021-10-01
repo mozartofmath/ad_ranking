@@ -30,6 +30,9 @@ def main():
         st.subheader(f'Given Campaign ID : "{cid}"')
         scored = score_sites(data, cid)
         st.table(scored.head(5))
+
+        st.subheader('Download the scored list of ads as a csv file by clicking the link below.')
+
         csv  = scored.to_csv(index=False)
         b64 = base64.b64encode(csv.encode()).decode()  # some strings <-> bytes conversions necessary here
         href = f'<a href="data:file/csv;base64,{b64}" download="ScoredAds_{cid}.csv">Download csv file</a>'
